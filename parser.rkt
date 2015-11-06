@@ -1,4 +1,6 @@
 #lang racket
+(require "language.rkt")
+
 (provide parse-expr)
 (require parser-tools/lex
          (prefix-in re- parser-tools/lex-sre)
@@ -15,6 +17,12 @@
   ;; your implementation of the parser
   ;; read from `in` and use your implementation of `forth-lexer` to transform input characters into s-expressions
   ;; EDIT ME
+
+  ;(let ([char (next-char)])
+  ;  (cond
+  ;    [eof-object? char (eof)]
+  ;    []))
+  (#t) ;so it compiles
 )
 
 
@@ -48,5 +56,8 @@
 (define forth-lexer
   (lexer
    [#\+ `(plus)] ; return a s-expression of the `+` sign
-   ...
+   [#\- `(min)]
+   ; ...
+   ["dump" `(dump)]
+   [number10 `(num ,(string->number lexeme))]
    [whitespace (forth-lexer input-port)])) ; ignore whitespace and advance the reader
